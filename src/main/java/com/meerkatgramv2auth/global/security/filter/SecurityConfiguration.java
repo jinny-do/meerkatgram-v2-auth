@@ -1,0 +1,35 @@
+package com.meerkatgramv2auth.global.security.filter;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity // 메소드 레벨 권한 제어 활성화 (컨트롤러 레이어)
+@RequiredArgsConstructor
+public class SecurityConfiguration {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(); // user 비밀번호 암호화
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션 비활성화, 기본 토큰 인증 방식으로 사용하고 있으니 세션사용 안 해서 비활성화
+                .httpBasic(AbstractHttpConfigurer::disable) // 화면 생성 비활성화
+                .formLogin(AbstractHttpConfigurer::disable) // 폼로그인 기능 비활성화
+                .csrf(AbstractHttpConfigurer::disable) // CSRF 토큰 인증 비활성화
+                .authorizeHttpRequests(request -> request.anyRequest().permitAll()) // 인증 여부와 무관하게 모든 요청 통과
+                .build();
+    }
+}
