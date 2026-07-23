@@ -39,7 +39,7 @@ public class JwtProvider {
                 .issuer((jwtConfig.issuer())) // 토큰 발급자 셋팅
                 .issuedAt(now) // 토큰 발급 시간
                 .expiration(new Date(now.getTime() + ttl))
-                .claim("role", user.getRole()) // private claim 설정
+                .claim("role", user.getRole()) // private claim 설정 (key, value 형태)
                 .signWith(secretKey) // 시그니처 작성
                 .compact();
     }
