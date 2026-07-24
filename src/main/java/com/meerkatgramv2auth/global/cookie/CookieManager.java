@@ -29,6 +29,11 @@ public class CookieManager {
         );
     }
 
+    public Optional<String> getRefreshTokenToCookie(HttpServletRequest request) {
+        return this.getCookie(request, jwtConfig.refreshTokenCookieName())
+                .map(Cookie::getValue); // 해당 쿠키의 값만 Optional로 가져옴
+    }
+
     private Optional<Cookie> getCookie(HttpServletRequest request, String name) {
         // 쿠키 존재 여부 확인
         if(request.getCookies() == null) {
@@ -51,5 +56,15 @@ public class CookieManager {
         cookie.setSecure(jwtConfig.secure()); // Secure 설정: true시 HTTPS 사용 (MITM 공격 방지)
 
         response.addCookie(cookie);
+    }
+
+    public void removeRefreshTokenToCookie(HttpServletResponse response) {
+        this.setCookie(
+                response
+                , jwtConfig.refreshTokenCookieName()
+                , null
+                , 0
+                , jwtConfig.reissueUri()
+        );
     }
 }
