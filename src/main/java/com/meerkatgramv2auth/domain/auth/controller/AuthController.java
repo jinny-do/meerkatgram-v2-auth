@@ -1,6 +1,7 @@
 package com.meerkatgramv2auth.domain.auth.controller;
 
 import com.meerkatgramv2auth.domain.auth.request.LoginRequestDTO;
+import com.meerkatgramv2auth.domain.auth.request.RegistrationRequestDTO;
 import com.meerkatgramv2auth.domain.auth.response.AuthResponseDTO;
 import com.meerkatgramv2auth.domain.auth.service.AuthService;
 import com.meerkatgramv2auth.global.config.openapi.CustomApiResponse;
@@ -81,6 +82,15 @@ public class AuthController {
             HttpServletResponse response
     ) {
         return ResponseEntity.ok(GlobalResponseDTO.success(authService.reissue(request, response)));
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<GlobalResponseDTO<Void>> registration(
+            @Valid @RequestBody RegistrationRequestDTO registrationReq
+            ) {
+        authService.registration(registrationReq);
+
+        return ResponseEntity.ok(GlobalResponseDTO.success());
     }
 
 }
