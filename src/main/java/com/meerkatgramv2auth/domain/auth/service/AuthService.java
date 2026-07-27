@@ -10,8 +10,6 @@ import com.meerkatgramv2auth.global.error.custom.DuplicatedRecordException;
 import com.meerkatgramv2auth.global.error.custom.InvalidTokenException;
 import com.meerkatgramv2auth.global.error.custom.NotRegisteredException;
 import com.meerkatgramv2auth.global.jwt.JwtProvider;
-import com.meerkatgramv2auth.global.security.constant.ProviderPolicy;
-import com.meerkatgramv2auth.global.security.constant.RolePolicy;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -111,8 +109,8 @@ public class AuthService  {
         newUser.setPassword(passwordEncoder.encode(registrationReq.password()));
         newUser.setNick(registrationReq.nick());
         newUser.setProfile(registrationReq.profile());
-        newUser.setProvider(ProviderPolicy.NONE);
-        newUser.setRole(RolePolicy.NORMAL);
+        // newUser.setProvider(ProviderPolicy.NONE);
+        // newUser.setRole(RolePolicy.NORMAL);
 
         authRepository.save(newUser);
     }

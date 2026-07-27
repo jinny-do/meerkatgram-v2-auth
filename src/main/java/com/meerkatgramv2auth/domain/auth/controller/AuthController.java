@@ -84,6 +84,12 @@ public class AuthController {
         return ResponseEntity.ok(GlobalResponseDTO.success(authService.reissue(request, response)));
     }
 
+    @Operation(summary = "회원가입 처리")
+    @CustomApiResponse(value = {
+            CustomResponseCode.INVALID_PARAMETER_ERROR,
+            CustomResponseCode.DB_ERROR,
+            CustomResponseCode.SYSTEM_ERROR
+    })
     @PostMapping("/registration")
     public ResponseEntity<GlobalResponseDTO<Void>> registration(
             @Valid @RequestBody RegistrationRequestDTO registrationReq
