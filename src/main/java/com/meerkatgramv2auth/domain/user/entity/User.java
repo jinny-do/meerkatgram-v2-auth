@@ -5,9 +5,10 @@ import com.meerkatgramv2auth.global.security.constant.RolePolicy;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLRestriction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,7 +20,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // created_at와 updated_at 자동 갱신 해주는 이벤트 리스너 등록
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted_at = NOW() WHERE id = ?")
-@SQLRestriction("deleted_at IS NULL")
+// @SQLRestriction("deleted_at IS NULL")
+@FilterDef(name = "softDelete")
+@Filter(name= "softDelete", condition = "deleted_at IS NULL")
 @Getter
 @Setter
 public class User {

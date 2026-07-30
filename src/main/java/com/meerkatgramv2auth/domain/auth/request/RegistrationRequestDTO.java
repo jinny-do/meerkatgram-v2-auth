@@ -10,7 +10,7 @@ public record RegistrationRequestDTO(
 
         @Schema(description = "이메일", examples = "test4@test.com", nullable = false, requiredMode = Schema.RequiredMode.REQUIRED)
         @NotBlank(message = "이메일은 필수 항목입니다.")
-        @Pattern(regexp = "^[0-9a-zA-Z](?!.*?[\\-_.]{2})[a-zA-Z0-9\\-_.]{3,63}@[0-9a-zA-Z](?!.*?[\\-_.]{2})[a-zA-Z0-9\\-_.]{3,63}\\.[a-zA-Z]{2,3}$", message = "허용하지 않는 이메일 양식입니다.")
+        @Pattern(regexp = "^[0-9a-zA-Z](?!.*?[\\-_.]{2})[a-zA-Z0-9\\-_.]{3,63}@[0-9a-zA-Z](?!.*?[\\-_.]{2})[a-zA-Z0-9\\-_.]{3,63}\\.[a-zA-Z]{2,3}$", message = "허용하지 않는 양식입니다.")
         String email,
 
         @Schema(description = "비밀번호", examples = "qwer1234", nullable = false, requiredMode = Schema.RequiredMode.REQUIRED)
