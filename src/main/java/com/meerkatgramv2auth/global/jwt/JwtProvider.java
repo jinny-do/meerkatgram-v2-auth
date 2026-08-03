@@ -2,7 +2,7 @@ package com.meerkatgramv2auth.global.jwt;
 
 import com.meerkatgramv2auth.domain.user.entity.User;
 import com.meerkatgramv2auth.global.cookie.CookieManager;
-import com.meerkatgramv2auth.global.error.custom.InvalidTokenException;
+import com.meerkatgramv2auth.global.error.custom.business.InvalidTokenException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
